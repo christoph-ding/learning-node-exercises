@@ -1,0 +1,19 @@
+{
+  "name": "learn-you-node-exercises",
+  "version": "1.0.0",
+  "description": "Programs to go with learnyounode.  Doing the exercises, really.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironpup/learning-node-exercises.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ironpup/learning-node-exercises/issues"
+  },
+  "homepage": "https://github.com/ironpup/learning-node-exercises#readme"
+}
