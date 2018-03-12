@@ -8,35 +8,44 @@ let server = require('http').createServer(function(req, res) {
   console.log('listening on: ', targetSocket)
 })
 
-// server.on('request', function(req, res) {
-//   console.log('2nd step')
-// })
-
 function urlContains(url, substring) {
   return url.indexOf(substring) > -1
 }
 
-function generateISOJSON(url, )
+function generateISOJSON(url) {
+  let date = new Date(url.query.iso)
 
+  let generatedJSON = {
+    hour: date.getHours(),
+    minute: date.getMinutes() ,
+    second: date.getSeconds()
+  }
+  return generatedJSON
+}
+
+function generateUNIXTime(url) {
+  let date = new Date(url.query.iso)
+  let generatedJSON = {
+    unixtime: date.getTime()
+  }
+  return generatedJSON
+}
 
 server.on('request', function(req, res) {
-  console.log('got something')
-
-  let parsedURL = url.parse(req.url)
+  let parsedURL = url.parse(req.url, true)
   let pathname = parsedURL['pathname']
   let search = parsedURL['search']
 
-  // testing logging
-  console.log('url: ', req.url)
-  console.log('pathname: ', pathname) 
-  console.log('search: ', search)
+  let relevantJSON
 
   // iso time
   if (urlContains(pathname, 'parsetime')) {
-    console.log('... parsing time ...')
+    relevantJSON = generateISOJSON(parsedURL)
+  } else if (urlContains(pathname, 'unixtime')) {
+    relevantJSON = generateUNIXTime(parsedURL)
   }
 
-  res.end('yo')
+  res.end(JSON.stringify(relevantJSON))
 })
 
 server.listen(targetSocket)
